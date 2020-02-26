@@ -10,5 +10,10 @@ exports.connectToDB = () => {
   } else {
     connectionString = `mongodb://${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
   }
-  return mongoose.connect(connectionString);
+  console.log(`Connection to ${connectionString}`);
+  mongoose.set("useFindAndModify", false);
+  return mongoose.connect(connectionString, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  });
 };
