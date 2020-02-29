@@ -17,6 +17,7 @@ module.exports = {
       },
       env_production: {
         NODE_ENV: "production",
+        PORT: 4000,
         DB_USER: "admin",
         DB_PASSWORD: "project3",
         DB_HOST: "cluster0-rkmho.mongodb.net",
