@@ -20,7 +20,6 @@ module.exports = {
         DB_USER: "admin",
         DB_PASSWORD: "project3",
         DB_HOST: "cluster0-rkmho.mongodb.net",
-        DB_PORT: 27017,
         DB_DATABASE: "handy-booking-app",
         JWT_KEY:
           "jYa88LWNX2t3wlHhZMCHJyb7BBKZ_mGvEwfb2evgWvTpSjkWW-GSw8n-Qa2wGmDXFeeqp579DJCJ_6esveCct0k2G1koppXVpMTYa_rokq32MMe0VFSYcpVwxTT7a"
