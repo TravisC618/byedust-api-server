@@ -12,6 +12,9 @@ function validate(req) {
       .email(),
     password: Joi.string()
       .min(6)
+      .required(),
+    username: Joi.string()
+      .min(3)
       .required()
   };
 
