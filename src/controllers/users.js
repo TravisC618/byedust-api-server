@@ -9,7 +9,7 @@ const { formatResponse } = require("../utils/helper");
  *    - else, do not return token ==> instead login controller will return it
  */
 async function addUser(req, res) {
-  const { email, password, role } = req.body;
+  const { email, password, username } = req.body;
 
   // check existed email
   const existingUser = await User.findOne({ email });
@@ -21,7 +21,7 @@ async function addUser(req, res) {
   const newUser = new User({
     email,
     password,
-    role
+    username
   });
 
   // hash plain pwd and save
