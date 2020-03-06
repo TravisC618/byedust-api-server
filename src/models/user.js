@@ -25,7 +25,13 @@ const schema = new mongoose.Schema({
   role: {
     type: String,
     default: "editor"
-  }
+  },
+  tasks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Task"
+    }
+  ]
 });
 
 /**

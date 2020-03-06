@@ -30,9 +30,11 @@ async function addUser(req, res) {
   await newUser.save();
   // generate token and return
   const token = generateToken(newUser.role);
+  const userId = newUser._id;
   return formatResponse(res, 201, "Successfully registered", {
     email,
-    token
+    token,
+    userId
   });
 }
 

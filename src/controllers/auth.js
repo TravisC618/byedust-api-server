@@ -23,7 +23,11 @@ const loginUser = async (req, res) => {
 
   // generate token and return success
   const token = generateToken(existingUser.role);
-  return formatResponse(res, 200, null, { email, token });
+  return formatResponse(res, 200, null, {
+    email,
+    token,
+    userId: existingUser._id
+  });
 };
 
 module.exports = { loginUser };

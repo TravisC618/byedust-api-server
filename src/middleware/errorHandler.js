@@ -6,7 +6,6 @@ module.exports = (err, req, res, next) => {
     logger.error(err.message);
     return formatResponse(res, 400, err.message, null);
   }
-
   // return res.json(err);
   return formatResponse(res, 500, "Something unexpected happened");
 };

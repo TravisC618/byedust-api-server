@@ -7,6 +7,6 @@ const { addTask, getAllTasks, getTask } = require("../controllers/tasks");
 
 router.get("/", getAllTasks);
 router.get("/:id", validateId, getTask);
-router.post("/customers/:customerId", authGuard, validateId, addTask);
+router.post("/users/:userId", authGuard, validateId, addTask);
 
 module.exports = router;
