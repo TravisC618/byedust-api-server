@@ -6,6 +6,16 @@ module.exports = (err, req, res, next) => {
     logger.error(err.message);
     return formatResponse(res, 400, err.message, null);
   }
-  // return res.json(err);
+  if (err.name === "CastError") {
+    const splitedStr = err.message.split(" ");
+    const errModel = splitedStr[splitedStr.length - 1];
+    if (errModel === '"User"')
+      return formatResponse(
+        res,
+        400,
+        "Invalid user id, Please login again",
+        null
+      );
+  }
   return formatResponse(res, 500, "Something unexpected happened");
 };
