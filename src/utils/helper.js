@@ -74,13 +74,12 @@ function convertPagination(query, count) {
   page = parseInt(query.page) || 1;
   pageSize = parseInt(query.pageSize) || 10;
 
-  // trick or treat
   if (page < 1) {
     page = 1;
   }
   // total pages after pagination
   const pages = Math.ceil(count / pageSize);
-  // trick or treat
+
   if (page > pages) {
     page = pages;
   }
@@ -88,18 +87,25 @@ function convertPagination(query, count) {
   return { page, pageSize, pages };
 }
 
-// TODO handle search query
-const searchQueryCount = function(model, key) {
-  // sum
-  const aggregate = [];
-  return 0;
+const searchQuery = async function(model, pagination, sort, search) {
+  const { page, pageSize } = pagination;
+  return model
+    .find({ title: { $regex: search, $options: "i" } })
+    .sort(sort)
+    .skip((page - 1) * pageSize)
+    .limit(pageSize);
 };
 
-// TODO handle search helper function (最后应该放在services class里)
+const searchQueryCount = async function(model, search) {
+  const count = await model
+    .find({ title: { $regex: search, $options: "i" } })
+    .countDocuments();
+  return count;
+};
+
 const countAllwithSearch = async function(model, search) {
   let count;
   if (search) {
-    // 暂无处理search key
     count = searchQueryCount(model, search);
   } else {
     count = await model.find().countDocuments();
@@ -108,7 +114,6 @@ const countAllwithSearch = async function(model, search) {
 };
 
 /**
- * // TODO 最后应该放在services class里
  * @param {*} pagination
  * @param {*} priceRange
  * @param {*} search
@@ -119,9 +124,8 @@ const getAll = function(model, pagination, priceRange, search, sort) {
   const { minPrice, maxPrice } = priceRange;
   let query;
 
-  // TODO if search key exists, ...
   if (search) {
-    return;
+    query = searchQuery(model, pagination, sort, search);
   } else {
     query = model.find({ budget: { $gte: minPrice, $lte: maxPrice } });
     query = query.sort(sort);

@@ -50,15 +50,10 @@ async function getTask(req, res) {
   return formatResponse(res, 200, null, task);
 }
 
-// async function getAllTasks(req, res) {
-//   const { minPrice = 5, maxPrice = 9999 } = req.query;
-//   const tasks = await Task.find({ budget: { $gte: minPrice, $lte: maxPrice } });
-//   return formatResponse(res, 200, null, tasks);
-// }
-
 async function getAllTasks(req, res) {
   // q: search key
   const { q } = req.query;
+  debugger;
   const total = await countAllwithSearch(Task, q);
 
   // deal with pagination, sort, search
