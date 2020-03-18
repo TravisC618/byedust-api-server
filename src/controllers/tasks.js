@@ -43,7 +43,9 @@ async function addTask(req, res) {
 
 async function getTask(req, res) {
   const { id } = req.params;
-  const task = await Task.findById(id).exec();
+  const task = await Task.findById(id)
+    .populate("customer", "username")
+    .exec();
   if (!task) {
     return formatResponse(res, 404, "Task not found", null);
   }
