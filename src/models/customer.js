@@ -9,19 +9,7 @@ const schema = new mongoose.Schema({
     required: true
   },
   gender: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    validate: {
-      validator: email =>
-        !Joi.string()
-          .email()
-          .validate(email).error,
-      msg: "Invalid email format"
-    }
+    type: String
   },
   language: {
     type: Array,
@@ -44,7 +32,6 @@ const schema = new mongoose.Schema({
     {
       // datatype of traide id
       type: mongoose.Schema.Types.ObjectId,
-
       // tradie model name
       ref: "Tradie"
     }

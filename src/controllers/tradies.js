@@ -6,30 +6,20 @@ async function addTradie(req, res) {
   const {
     name,
     gender,
-    email,
     language,
     address,
     avatar,
-    introduction,
-    title,
-    professionalYears,
-    skills,
-    vocation,
-    reviews
+    mobile,
+    introduction
   } = req.body;
   const tradie = new Tradie({
     name,
     gender,
-    email,
     language,
     address,
     avatar,
-    introduction,
-    title,
-    professionalYears,
-    skills,
-    vocation,
-    reviews
+    mobile,
+    introduction
   });
   // return res.json({ name, gender, email }); // 读不出body？？
   await tradie.save();

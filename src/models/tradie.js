@@ -9,19 +9,7 @@ const schema = new mongoose.Schema({
     required: true
   },
   gender: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    validate: {
-      validator: email =>
-        !Joi.string()
-          .email()
-          .validate(email).error,
-      msg: "Invalid email format"
-    }
+    type: String
   },
   language: {
     type: Array,
@@ -30,6 +18,9 @@ const schema = new mongoose.Schema({
   address: {
     type: String
   },
+  mobile: {
+    type: Number
+  },
   avatar: {
     type: String
   },
@@ -37,19 +28,6 @@ const schema = new mongoose.Schema({
     type: String,
     default: "I'm too lazy to give an introduction :)"
   },
-  title: {
-    type: String
-  },
-  professionalYears: {
-    type: Number
-  },
-  skills: {
-    type: Array
-  },
-  vocation: {
-    type: String
-  },
-  reviews: [{ body: String, date: Date }],
   customers: [
     {
       type: mongoose.Schema.Types.ObjectId,
