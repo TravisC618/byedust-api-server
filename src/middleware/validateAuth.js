@@ -15,7 +15,9 @@ function validate(req) {
       .required(),
     username: Joi.string()
       .min(3)
-      .required()
+      .required(),
+    role: Joi.string(),
+    roleId: Joi.string()
   };
 
   return Joi.validate(req, schema);

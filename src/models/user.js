@@ -22,9 +22,13 @@ const schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  role: {
-    type: String,
-    default: "editor"
+  customerRole: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Customer"
+  },
+  tradieRole: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Tradie"
   },
   tasks: [
     {

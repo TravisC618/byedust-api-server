@@ -8,7 +8,6 @@ async function addCustomer(req, res) {
   const {
     name,
     gender,
-    email,
     language,
     address,
     mobile,
@@ -19,7 +18,6 @@ async function addCustomer(req, res) {
   const customer = new Customer({
     name,
     gender,
-    email,
     language,
     address,
     mobile,
