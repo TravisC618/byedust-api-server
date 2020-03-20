@@ -5,10 +5,9 @@ const tradieRoute = require("./routes/tradies");
 const userRoute = require("./routes/users");
 const taskRoute = require("./routes/tasks");
 const authRoute = require("./routes/auth");
-const authGuard = require("./middleware/authGuard");
 
 router.use("/customers", customerRoute);
-router.use("/tradies", authGuard, tradieRoute);
+router.use("/tradies", tradieRoute);
 router.use("/tasks", taskRoute);
 router.use("/users", userRoute);
 router.use("/auth", authRoute);
