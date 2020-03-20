@@ -22,6 +22,9 @@ const schema = new mongoose.Schema({
     type: String,
     required: true
   },
+  role: {
+    type: String
+  },
   customerRole: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Customer"

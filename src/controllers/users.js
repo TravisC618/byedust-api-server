@@ -34,6 +34,7 @@ async function addUser(req, res) {
         email,
         password,
         username,
+        role,
         customerRole: roleId
       });
       break;
@@ -42,6 +43,7 @@ async function addUser(req, res) {
         email,
         password,
         username,
+        role,
         tradieRole: roleId
       });
       break;
@@ -59,7 +61,9 @@ async function addUser(req, res) {
   return formatResponse(res, 201, "Successfully registered", {
     email,
     token,
-    userId
+    userId,
+    role,
+    roleId
   });
 }
 

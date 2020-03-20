@@ -23,10 +23,21 @@ const loginUser = async (req, res) => {
 
   // generate token and return success
   const token = generateToken(existingUser.role);
+
+  // return success
+  let roleId;
+  if (existingUser.role === "customer") {
+    roleId = existingUser.customerRole;
+  }
+  if (existingUser.role === "tradie") {
+    roleId = existingUser.tradieRole;
+  }
   return formatResponse(res, 200, null, {
     email,
     token,
-    userId: existingUser._id
+    userId: existingUser._id,
+    role: existingUser.role,
+    roleId
   });
 };
 
