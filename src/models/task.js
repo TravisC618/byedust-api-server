@@ -30,10 +30,18 @@ const schema = mongoose.Schema(
       minlength: 25,
       maxlength: 1000
     },
-    offer: {
-      type: Array
-    },
-    comment: {
+    offers: [
+      {
+        tradie: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Tradie"
+        },
+        price: { type: Number },
+        comment: { type: String },
+        createdAt: { type: Date, default: Date.now }
+      }
+    ],
+    comments: {
       type: Array
     },
     customer: {

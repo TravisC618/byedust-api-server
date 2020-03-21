@@ -1,6 +1,8 @@
 const Task = require("../models/task");
 const User = require("../models/user");
 const Customer = require("../models/customer");
+const Tradie = require("../models/tradie");
+
 const {
   formatResponse,
   countAllwithSearch,
@@ -44,7 +46,8 @@ async function addTask(req, res) {
 async function getTask(req, res) {
   const { id } = req.params;
   const task = await Task.findById(id)
-    .populate("customer", "username")
+    .populate("offers.tradie", "name avatar")
+    .populate("customer", "name")
     .exec();
   if (!task) {
     return formatResponse(res, 404, "Task not found", null);
@@ -69,4 +72,43 @@ async function getAllTasks(req, res) {
   return formatResponse(res, 200, null, { tasks, pagination });
 }
 
-module.exports = { addTask, getAllTasks, getTask };
+async function addOffer(req, res) {
+  const { id, tradieId } = req.params;
+  const { price, comment } = req.body;
+
+  // validate tradie exist
+  const existingTradie = await Tradie.findById(tradieId);
+  if (!existingTradie) {
+    return formatResponse(res, 404, "Tradie not found", null);
+  }
+
+  const newOffer = { tradie: tradieId, price, comment };
+
+  const existingTask = await Task.findById(id);
+
+  // validate task exist
+  if (!existingTask) {
+    return formatResponse(res, 404, "Task not found", null);
+  }
+
+  const oldCount = existingTask.offers.length;
+
+  existingTask.offers.push(newOffer);
+  await existingTask.save();
+
+  // check if offers array changed
+  if (oldCount === existingTask.offers.length) {
+    return formatResponse(
+      res,
+      400,
+      "Offer haven't been added for some reasons, please try again",
+      null
+    );
+  }
+
+  const newOfferInDB = existingTask.offers[existingTask.offers.length - 1];
+
+  return formatResponse(res, 200, null, newOfferInDB);
+}
+
+module.exports = { addTask, getAllTasks, getTask, addOffer };
