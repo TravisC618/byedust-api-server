@@ -47,7 +47,7 @@ async function getTask(req, res) {
   const { id } = req.params;
   const task = await Task.findById(id)
     .populate("offers.tradie", "name avatar")
-    .populate("customer", "name")
+    .populate("customer", "name username")
     .exec();
   if (!task) {
     return formatResponse(res, 404, "Task not found", null);
