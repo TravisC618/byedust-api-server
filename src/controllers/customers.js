@@ -164,6 +164,9 @@ async function assignTradie(req, res) {
     return formatResponse(res, 400, "Assign failed, please try again.", null);
   }
 
+  // update the task status from [open] to [assigned]
+  task.status = "assigned";
+
   // return success
   await customer.save();
   await tradie.save();
