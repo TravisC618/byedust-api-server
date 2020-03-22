@@ -127,6 +127,17 @@ async function assignTradie(req, res) {
     return formatResponse(res, 404, "Task not found", null);
   }
 
+  const customerIdInTask = task.customer._id.toString();
+
+  if (customerIdInTask !== customerId) {
+    return formatResponse(
+      res,
+      400,
+      "You have no right to assign this task.",
+      null
+    );
+  }
+
   if (task.tradie) {
     return formatResponse(res, 400, "Tradie is already assigned.", null);
   }

@@ -12,28 +12,28 @@ const { convertQuery } = require("../utils/helper");
 
 async function addTask(req, res) {
   // get id and task info
-  const { userId } = req.params;
+  const { customerId } = req.params;
   const { title, details, location, dueDate, budget } = req.body;
 
   // create a new task
   const newTask = new Task({ title, location, dueDate, budget, details });
 
   // two-way binding with customer: 1-N
-  const existingUser = await User.findById(userId);
-  if (!existingUser) {
+  const existingCustomer = await Customer.findById(customerId);
+  if (!existingCustomer) {
     return formatResponse(res, 404, "User not found", null);
   }
   // add customer to task.customer: 1
-  newTask.customer = existingUser._id;
+  newTask.customer = existingCustomer._id;
 
   // add task to customer.tasks: N
-  const oldCount = existingUser.tasks.length;
-  existingUser.tasks.addToSet(newTask._id);
-  if (oldCount === existingUser.tasks.length) {
+  const oldCount = existingCustomer.tasks.length;
+  existingCustomer.tasks.addToSet(newTask._id);
+  if (oldCount === existingCustomer.tasks.length) {
     return formatResponse(res, 400, "Post failed, please try again.", null);
   }
 
-  await existingUser.save();
+  await existingCustomer.save();
   await newTask.save();
   return formatResponse(
     res,
@@ -46,8 +46,9 @@ async function addTask(req, res) {
 async function getTask(req, res) {
   const { id } = req.params;
   const task = await Task.findById(id)
-    .populate("offers.tradie", "name avatar")
     .populate("customer", "name username")
+    .populate("tradie", "name username")
+    .populate("offers.tradie", "name avatar")
     .exec();
   if (!task) {
     return formatResponse(res, 404, "Task not found", null);

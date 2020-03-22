@@ -46,12 +46,12 @@ const schema = mongoose.Schema(
     },
     customer: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Customer",
       required: true
     },
     tradie: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "Tradie"
     }
   },
   {

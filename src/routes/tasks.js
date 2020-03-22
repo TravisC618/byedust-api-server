@@ -12,7 +12,7 @@ const {
 
 router.get("/", getAllTasks);
 router.get("/:id", validateId, getTask);
-router.post("/users/:userId", authGuard, validateId, addTask);
+router.post("/customers/:customerId", authGuard, validateId, addTask);
 router.post("/:id/tradies/:tradieId", authGuard, validateId, addOffer);
 
 module.exports = router;
