@@ -28,7 +28,9 @@ async function addTradie(req, res) {
 
 async function getTradie(req, res) {
   const { id } = req.params;
-  const tradie = await Tradie.findById(id).populate("customers");
+  const tradie = await Tradie.findById(id)
+    .populate("customers")
+    .populate("tasks");
   if (!tradie) {
     return formatResponse(res, 404, "Tradie not found", null);
   }
