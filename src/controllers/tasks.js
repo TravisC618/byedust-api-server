@@ -59,7 +59,6 @@ async function getTask(req, res) {
 async function getAllTasks(req, res) {
   // q: search key
   const { q } = req.query;
-  debugger;
   const total = await countAllwithSearch(Task, q);
 
   // deal with pagination, sort, search
