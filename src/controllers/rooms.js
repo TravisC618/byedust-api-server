@@ -10,9 +10,8 @@ const addRoom = async (req, res) => {
   return formatResponse(res, 201, null, newRoom);
 };
 
-const addUserInRoom = async (id, userId) => {
-  // const addUserInRoom = async (req, res) => {
-  // const { id, userId } = req.params;
+const addUserInRoom = async (req, res) => {
+  const { id, userId } = req.params;
 
   const existingRoom = await Room.findById(id).populate(
     "users",
