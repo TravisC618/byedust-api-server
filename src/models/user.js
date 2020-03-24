@@ -38,7 +38,11 @@ const schema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Task"
     }
-  ]
+  ],
+  room: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Room"
+  }
 });
 
 /**
